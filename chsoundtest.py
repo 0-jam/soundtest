@@ -11,6 +11,14 @@ def main():
     finally:
         alarm.close()
 
+    try:
+        alarm.change_sound_file('data/phone-incoming-call.wav')
+        alarm.play()
+    except KeyboardInterrupt:
+        print('Interrupted')
+    finally:
+        alarm.close()
+
 
 if __name__ == '__main__':
     main()

@@ -1,16 +1,20 @@
 import time
 import wave
+from pathlib import Path
 
 import pyaudio
+
+# source: sound-theme-freedesktop
+DEFAULT_SOUND_FILE_PATH = Path('data/alarm-clock-elapsed.wav').resolve()
 
 
 class Alarm(object):
     def __init__(self):
         self.buffer = 1024
 
-        # source: sound-theme-freedesktop
-        self.wf = wave.open('data/alarm-clock-elapsed.wav', 'rb')
+        self.wf = wave.open(str(DEFAULT_SOUND_FILE_PATH), 'rb')
 
+        self.pa = None
         self.stream = None
 
     def open(self):
@@ -35,7 +39,8 @@ class Alarm(object):
             self.stream.stop_stream()
             self.stream.close()
 
-        self.pa.terminate()
+        if self.pa is not None:
+            self.pa.terminate()
 
         # Waiting for releasing the sound device
         time.sleep(1)
@@ -46,6 +51,12 @@ class Alarm(object):
 
     def is_streaming_active(self):
         return self.stream is not None and self.stream.is_active
+
+    def change_sound_file(self, sound_file_path=DEFAULT_SOUND_FILE_PATH):
+        self.close()
+
+        sound_file_path = Path(sound_file_path).resolve()
+        self.wf = wave.open(str(sound_file_path))
 
 
 class NBAlarm(Alarm):
