@@ -5,7 +5,6 @@ def main():
     alarm = Alarm()
 
     try:
-        alarm.open()
         alarm.play()
     except KeyboardInterrupt:
         print('Interrupted')
@@ -14,7 +13,6 @@ def main():
 
     try:
         alarm.change_sound_file('data/phone-incoming-call.wav')
-        alarm.open()
         alarm.play()
     except KeyboardInterrupt:
         print('Interrupted')

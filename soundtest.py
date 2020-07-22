@@ -5,7 +5,6 @@ def main():
     alarm = Alarm()
 
     try:
-        alarm.open()
         alarm.play()
     except KeyboardInterrupt:
         print('Interrupted')
