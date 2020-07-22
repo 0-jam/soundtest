@@ -3,8 +3,8 @@ import time
 
 
 def main():
+    nba = NBAlarm()
     for i in range(3):
-        nba = NBAlarm()
         print('attempt:', i)
         nba.play()
         start_time = time.time()
