@@ -14,6 +14,7 @@ class Alarm(object):
 
         self.wf = wave.open(str(DEFAULT_SOUND_FILE_PATH), 'rb')
 
+        self.pa = None
         self.stream = None
 
     def open(self):
@@ -38,7 +39,8 @@ class Alarm(object):
             self.stream.stop_stream()
             self.stream.close()
 
-        self.pa.terminate()
+        if self.pa is not None:
+            self.pa.terminate()
 
         # Waiting for releasing the sound device
         time.sleep(1)
