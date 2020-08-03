@@ -50,7 +50,7 @@ class Alarm(object):
         self.wf.close()
 
     def is_streaming_active(self):
-        return self.stream is not None and self.stream.is_active
+        return self.stream is not None and self.stream.is_active()
 
     def change_sound_file(self, sound_file_path=DEFAULT_SOUND_FILE_PATH):
         self.close()
