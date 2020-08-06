@@ -9,13 +9,13 @@ DEFAULT_SOUND_FILE_PATH = Path('data/alarm-clock-elapsed.wav').resolve()
 
 
 class Alarm(object):
-    def __init__(self):
+    def __init__(self, sound_file_path=DEFAULT_SOUND_FILE_PATH):
         self.buffer = 1024
 
-        self.wf = wave.open(str(DEFAULT_SOUND_FILE_PATH), 'rb')
-
+        self.wf = None
         self.pa = None
         self.stream = None
+        self.change_sound_file(sound_file_path)
 
     def open(self):
         self.pa = pyaudio.PyAudio()
@@ -53,15 +53,16 @@ class Alarm(object):
         return self.stream is not None and self.stream.is_active()
 
     def change_sound_file(self, sound_file_path=DEFAULT_SOUND_FILE_PATH):
-        self.close()
+        if self.wf is not None:
+            self.close()
 
         sound_file_path = Path(sound_file_path).resolve()
         self.wf = wave.open(str(sound_file_path))
 
 
 class NBAlarm(Alarm):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, sound_file_path=DEFAULT_SOUND_FILE_PATH):
+        super().__init__(sound_file_path=sound_file_path)
 
     def open(self):
         pass
