@@ -4,9 +4,6 @@ import time
 
 from modules.alarm import NBAlarm
 
-play_event = threading.Event()
-alarm = NBAlarm()
-
 rng = random.SystemRandom(time.time())
 
 
@@ -37,24 +34,19 @@ def bogo_sort(orig_list):
     return shuffled_list
 
 
-orig_list = generate_random_list(list_size=9)
-
-
 def bogosort(event):
+    orig_list = generate_random_list(list_size=9)
     bogo_sort(orig_list)
     event.set()
 
 
-def init_sorter():
-    return threading.Thread(target=bogosort, args=(play_event,))
-
-
 def main():
+    play_event = threading.Event()
     alarm = NBAlarm()
 
     while True:
         try:
-            sorter = init_sorter()
+            sorter = threading.Thread(target=bogosort, args=(play_event,))
             sorter.start()
             play_event.wait()
 
