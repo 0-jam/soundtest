@@ -10,8 +10,6 @@ DEFAULT_SOUND_FILE_PATH = Path('data/alarm-clock-elapsed.wav').resolve()
 
 class Alarm(object):
     def __init__(self, sound_file_path=DEFAULT_SOUND_FILE_PATH):
-        self.buffer = 1024
-
         self.wf = None
         self.pa = None
         self.stream = None
@@ -29,7 +27,7 @@ class Alarm(object):
     def play(self):
         self.open()
 
-        while (data := self.wf.readframes(self.buffer)) != b'':
+        while (data := self.wf.readframes(1024)) != b'':
             self.stream.write(data)
 
         self.wf.rewind()
