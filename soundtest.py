@@ -1,8 +1,10 @@
+from pathlib import Path
+
 from modules.alarm import Alarm
 
 
 def main():
-    alarm = Alarm()
+    alarm = Alarm(sound_file_path=Path('data/alarm-clock-elapsed.wav').resolve())
 
     try:
         alarm.play()
