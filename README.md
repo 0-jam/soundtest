@@ -6,5 +6,12 @@ All sample sound files are copied from [Freedesktop.org sound theme](https://www
 
 ## Environment
 
-- Python 3.8.3
+- Python 3.8.5
 - Arch Linux x86_64
+
+## Installation
+
+```
+$ pipenv install
+$ sudo pacman -S alsa-utils
+```
